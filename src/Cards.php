@@ -50,6 +50,13 @@ class Cards
         )->validate();
     }
 
+    public function guessEndpointName()
+    {
+        return Str::of(class_basename($this))
+            ->snake()
+            ->slug();
+    }
+
     public function get($key): array
     {
         $key = str_replace('-', '_', $key);
