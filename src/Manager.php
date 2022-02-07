@@ -21,7 +21,7 @@ class Manager
 
         $this->cards[$key] = [
             'handler' => $handler,
-            'prefix' => $prefix,
+            'prefix'  => $prefix,
         ];
 
         $root = config('headless-cards.root', 'cards');

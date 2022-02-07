@@ -122,7 +122,7 @@ class Card
 
     public function getCachedValue()
     {
-        if (! $this->cache) {
+        if (!$this->cache) {
             return $this->resolveClosureValue();
         }
 
@@ -148,7 +148,7 @@ class Card
 
         $card = array_merge($card, [
             'cardKey' => Str::slug($this->key),
-            'value' => $this->getCachedValue(),
+            'value'   => $this->getCachedValue(),
         ]);
 
         return array_filter($card);
@@ -157,14 +157,14 @@ class Card
     public function toArray(): array
     {
         return [
-            'key' => $this->key,
-            'value' => $this->value,
-            'title' => $this->title,
-            'props' => $this->props,
+            'key'       => $this->key,
+            'value'     => $this->value,
+            'title'     => $this->title,
+            'props'     => $this->props,
             'component' => $this->component,
-            'span' => $this->span,
-            'link' => $this->link,
-            'allowed' => $this->allowed,
+            'span'      => $this->span,
+            'link'      => $this->link,
+            'allowed'   => $this->allowed,
         ];
     }
 }

@@ -40,7 +40,7 @@ class Cards
 
     public function validate()
     {
-        if (! $this->authorize()) {
+        if (!$this->authorize()) {
             throw new AuthorizationException();
         }
 
@@ -56,7 +56,7 @@ class Cards
 
         foreach ($this->cards() as $card) {
             if ($card->key === $key) {
-                if (! $card->allowed) {
+                if (!$card->allowed) {
                     throw new AuthorizationException();
                 }
 

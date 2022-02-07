@@ -12,7 +12,7 @@ class Dashboard extends Cards
     {
         return [
             'from' => ['nullable', 'date'],
-            'to' => ['nullable', 'date'],
+            'to'   => ['nullable', 'date'],
         ];
     }
 
