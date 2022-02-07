@@ -2,6 +2,7 @@
 
 namespace HeadlessLaravel\Cards;
 
+use HeadlessLaravel\Metrics\Metric;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Http;
@@ -119,15 +120,26 @@ class Card
         return $this;
     }
 
-    public function resolveValue()
+    public function getCachedValue()
     {
         if (! $this->cache) {
-            return value($this->value);
+            return $this->resolveClosureValue();
         }
 
         return Cache::remember('cards.'.$this->key, $this->cache, function () {
-            return value($this->value);
+            return $this->resolveClosureValue();
         });
+    }
+
+    protected function resolveClosureValue(): mixed
+    {
+        $value = value($this->value);
+
+        if($value instanceof Metric) {
+            return $value->render();
+        }
+
+        return $value;
     }
 
     public function resolve(): array
@@ -136,7 +148,7 @@ class Card
 
         $card = array_merge($card, [
             'cardKey' => Str::slug($this->key),
-            'value' => $this->resolveValue(),
+            'value' => $this->getCachedValue(),
         ]);
 
         return array_filter($card);
