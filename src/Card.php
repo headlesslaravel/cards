@@ -135,7 +135,7 @@ class Card
     {
         $value = value($this->value);
 
-        if($value instanceof Metric) {
+        if ($value instanceof Metric) {
             return $value->render();
         }
 
