@@ -3,6 +3,7 @@
 namespace HeadlessLaravel\Cards;
 
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -13,6 +14,8 @@ class Cards
 
     protected $manager;
 
+    protected $shared = [];
+
     public function __construct(Manager $manager)
     {
         $this->manager = $manager;
@@ -20,12 +23,26 @@ class Cards
 
     public function key(): string
     {
-        return Str::of(class_basename(static::class))->snake();
+        return Str::of(class_basename(static::class))->snake()->slug();
     }
 
     public function cards(): array
     {
         return [];
+    }
+
+    public function share(): array
+    {
+        return [];
+    }
+
+    public function shared($key): mixed
+    {
+        if (count($this->shared) === 0) {
+            $this->shared = $this->share();
+        }
+
+        return Arr::get($this->shared, $key);
     }
 
     public function authorize(): bool
