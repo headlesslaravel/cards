@@ -38,7 +38,7 @@ class Cards
 
     public function shared($key): mixed
     {
-        if(count($this->shared) === 0) {
+        if (count($this->shared) === 0) {
             $this->shared = $this->share();
         }
 
